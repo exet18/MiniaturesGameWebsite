@@ -1,0 +1,62 @@
+<div class="catalogue-list">
+  <div class="game-background"></div>
+  <div class="catalogue-list-text">
+    <h2 class="catalogue-text">Catalogue List</h2>
+  </div>
+  <div class="game-catalogue">
+    <div class="catalogue-search-sort">
+      <div class="catalogue-search">
+        <mat-icon class="search__icon">search</mat-icon>
+        <input type="text" class="search__input" placeholder="Search by catalogue name">
+      </div>
+      <div class="catalogue-sort">
+        <p class="sort-text">Sort by: </p>
+        <mat-form-field appearance="fill">
+          <mat-select [(ngModel)]="sortOption" (selectionChange)="sort()" class="sort-list">
+            <mat-option *ngFor="let option of options" [value]="option.type" class="sort__option">
+              {{option.name}}
+            </mat-option>
+            <mat-option value="Date of Creation (latest first)">Date of Creation (latest first)</mat-option>
+            <mat-option value="#">Date of Creation (earliest first)</mat-option>
+            <mat-option value="#">Date of Editing (latest first)</mat-option>
+            <mat-option value="#">Date of Editing (earliest first)</mat-option>
+            <mat-option value="#">Increase of amount of items</mat-option>
+            <mat-option value="#">Decrease of amount of items</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <button class="add-button-catalogue-list">
+        <mat-icon class="add-icon">add_circle_outline</mat-icon>
+        <p class="catalogue-text">Add Catalogue</p>
+      </button>
+    </div>
+  </div>
+  <div class="game-list">
+    <div class="game" *ngFor="let game of games">
+      <img src="{{game.image}}" alt="{{game.name}} image" class="game-image">
+      <div class="game-container">
+        <div class="game-name">
+          <p class="name">{{game.name}}</p>
+          <mat mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu"
+               class="edit-menu">
+            <mat-icon>more_vert</mat-icon>
+          </mat>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+              <mat-icon class="edit__icon">create</mat-icon>
+              <span>Edit</span>
+            </button>
+            <button mat-menu-item>
+              <mat-icon class="edit__icon">delete</mat-icon>
+              <span>Delete</span>
+            </button>
+          </mat-menu>
+        </div>
+        <mat-card class="game-amount">
+          <p>{{game.amount}} Items</p>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
+

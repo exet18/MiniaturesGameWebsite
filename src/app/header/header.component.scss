@@ -1,0 +1,60 @@
+.header {
+  background: #1C2A2D;
+  border-bottom: 1px solid #2E3B3E;
+
+  .header-container {
+    padding: 0 48px;
+    display: flex;
+    justify-content: space-between;
+
+    .header-logo {
+      padding: 16px 0;
+
+      .header-title {
+        color: #009E8E;
+        font-family: Handelson, sans-serif;
+        margin: 0;
+        font-size: 36px;
+        line-height: 32px;
+        font-weight: 500;
+      }
+
+      .title-catalogue {
+        font-family: Gilroy-Medium, sans-serif;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 24px;
+        text-transform: uppercase;
+        letter-spacing: 0.065em;
+        color: white;
+        margin: 0;
+      }
+    }
+
+    .header-log-out {
+      display: flex;
+      align-items: center;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      .log-out__icon {
+        padding-top: 3px;
+        font-size: 18px;
+        color: #D5D8D8;
+      }
+
+      .log-out__text {
+        font-style: normal;
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 24px;
+        color: #D5D8D8;
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+}

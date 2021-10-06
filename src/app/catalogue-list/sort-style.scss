@@ -1,0 +1,102 @@
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+  background: unset;
+
+}
+
+::ng-deep .mat-form-field-wrapper {
+  padding: 0;
+}
+
+::ng-deep .mat-form-field.mat-focused .mat-form-field-ripple {
+  background-color: unset;
+}
+
+::ng-deep .mat-form-field-underline {
+  ::before {
+    background-color: unset;
+  }
+}
+
+::ng-deep .mat-select-value {
+  color: #009E8E;
+  font-family: Gilroy-SemiBold, sans-serif;
+}
+
+::ng-deep .mat-option.mat-active {
+  background: #2E3B3E;
+  color: #A3A8A8;
+}
+
+::ng-deep .mat-option {
+  background: #2E3B3E;
+  color: #A3A8A8;
+  padding: 0 90px 0 16px !important;
+}
+
+::ng-deep .mat-option:hover:not(.mat-option-disabled), .mat-option:focus:not(.mat-option-disabled) {
+  background: #495557;
+}
+
+::ng-deep .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+  color: #009E8E !important;
+}
+
+::ng-deep .mat-select-panel {
+  background: #2E3B3E;
+  max-height: 380px !important;
+  max-width: 352px !important;
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-underline::before {
+  background-color: unset;
+}
+
+::ng-deep .mat-form-field-ripple {
+  background-color: unset;
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-select-arrow-wrapper {
+  transform: translateY(0) !important;
+}
+
+::ng-deep .mat-select-arrow {
+  color: #009E8E;
+}
+
+::ng-deep .mat-form-field.mat-focused.mat-primary .mat-select-arrow {
+  color: #009E8E;
+}
+
+.mat-body, .mat-body-1, .mat-typography {
+  font: unset;
+}
+
+.mat-body, .mat-body-1, .mat-typography {
+  color: #A3A8A8;
+}
+
+::ng-deep .mat-form-field {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+::ng-deep .mat-form-field-infix {
+  border-top: unset;
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+  padding: 2px 0px 0 15px !important;
+}
+
+::ng-deep .mat-form-field-infix {
+  width: 250px !important;
+}
+
+::ng-deep .mat-select-panel:not([class*=mat-elevation-z])::-webkit-scrollbar {
+  width: 0;
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-infix {
+  padding: 0 0 1px 0;
+}
+
