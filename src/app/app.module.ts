@@ -11,11 +11,12 @@ import {MatButtonModule} from "@angular/material/button";
 import {CatalogueListComponent} from './catalogue-list/catalogue-list.component';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatSelectModule} from "@angular/material/select";
 import {MatOptionModule} from "@angular/material/core";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatCardModule} from "@angular/material/card";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import {MatCardModule} from "@angular/material/card";
     MatOptionModule,
     MatMenuModule,
     MatCardModule,
-
+    ReactiveFormsModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

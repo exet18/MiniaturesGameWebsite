@@ -1,6 +1,3 @@
-@import "sort-style";
-@import "edit-style";
-
 .catalogue-list {
   .game-background {
     background: url("../../assets/images/bg.png") center center;
@@ -38,6 +35,11 @@
         height: 56px;
         padding-left: 19px;
 
+        .search-form {
+          display: flex;
+          align-items: center;
+        }
+
         .search__icon {
           color: white;
         }
@@ -59,6 +61,7 @@
         align-items: center;
 
         .sort-text {
+          font-family: Roboto, "Helvetica Neue", sans-serif;
           margin: 0;
           font-size: 16px;
           line-height: 24px;
@@ -121,9 +124,10 @@
       width: 100%;
       margin-bottom: 25px;
 
-      .game-image{
+      .game-image {
         max-width: 480px;
       }
+
       .game-container {
         max-width: 416px;
         margin: 0 auto;
@@ -178,3 +182,133 @@
     }
   }
 }
+
+::ng-deep {
+  .mat-form-field-wrapper {
+    padding: 0;
+  }
+
+  .mat-form-field.mat-focused .mat-form-field-ripple {
+    background-color: unset;
+  }
+
+  .mat-form-field-underline ::before {
+    background-color: unset;
+  }
+
+  .mat-select-value {
+    color: #009E8E;
+    font-family: Gilroy-SemiBold, sans-serif;
+  }
+
+  .mat-option.mat-active {
+    background: #2E3B3E;
+    color: #A3A8A8;
+  }
+
+  .mat-form-field-appearance-fill .mat-form-field-underline::before {
+    background-color: unset;
+  }
+
+  .mat-form-field-appearance-fill .mat-form-field-flex {
+    background: unset;
+  }
+
+  .mat-form-field-appearance-fill .mat-form-field-infix {
+    padding: 0 0 1px 0;
+  }
+
+  .mat-select-panel:not([class*=mat-elevation-z])::-webkit-scrollbar {
+    width: 0;
+  }
+
+  .mat-form-field-infix {
+    width: 250px !important;
+  }
+
+  .mat-form-field-appearance-fill .mat-form-field-flex {
+    padding: 2px 0px 0 15px !important;
+  }
+
+  .mat-body, .mat-body-1, .mat-typography {
+    font: unset;
+  }
+
+  .mat-form-field-infix {
+    border-top: unset;
+  }
+
+  .mat-form-field {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .mat-body-1, .mat-typography {
+    color: #A3A8A8;
+  }
+
+  .mat-form-field.mat-focused.mat-primary .mat-select-arrow {
+    color: #009E8E;
+  }
+
+  .mat-select-arrow {
+    color: #009E8E;
+  }
+
+  .mat-form-field-appearance-fill .mat-select-arrow-wrapper {
+    transform: translateY(0) !important;
+  }
+
+  .mat-form-field-ripple {
+    background-color: unset;
+  }
+
+  .mat-select-panel {
+    background: #2E3B3E;
+    max-height: 380px !important;
+    max-width: 352px !important;
+  }
+
+  .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+    color: #009E8E !important;
+  }
+
+  .mat-option:hover:not(.mat-option-disabled), .mat-option:focus:not(.mat-option-disabled) {
+    background: #495557;
+  }
+
+  .mat-option {
+    background: #2E3B3E;
+    color: #A3A8A8;
+    padding: 0 90px 0 16px !important;
+  }
+
+  .mat-menu-item .mat-icon-no-color, .mat-menu-submenu-icon {
+    color: unset;
+  }
+
+  .mat-menu-item:hover:not([disabled]), .mat-menu-item.cdk-program-focused:not([disabled]), .mat-menu-item.cdk-keyboard-focused:not([disabled]), .mat-menu-item-highlighted:not([disabled]) {
+    background: #2E3B3E;
+  }
+
+  .mat-menu-item {
+    height: 42px !important;
+    padding: 0 47px 0 19px !important;
+    background: #1C2A2D;
+    color: #A3A8A8;
+  }
+
+  .mat-menu-content {
+    padding: 0 !important;
+  }
+
+  .mat-menu-panel {
+    background: unset;
+  }
+}
+
+.mat-menu-content:not(:empty) {
+  padding-top: 4px;
+}
+
+

@@ -6,24 +6,28 @@
   <div class="game-catalogue">
     <div class="catalogue-search-sort">
       <div class="catalogue-search">
-        <mat-icon class="search__icon">search</mat-icon>
-        <input type="text" class="search__input" placeholder="Search by catalogue name">
+        <form [formGroup]="inputForm" class="search-form">
+          <mat-icon class="search__icon">search</mat-icon>
+          <input type="text" class="search__input" placeholder="Search by catalogue name" formControlName="input">
+        </form>
       </div>
       <div class="catalogue-sort">
         <p class="sort-text">Sort by: </p>
-        <mat-form-field appearance="fill">
-          <mat-select [(ngModel)]="sortOption" (selectionChange)="sort()" class="sort-list">
-            <mat-option *ngFor="let option of options" [value]="option.type" class="sort__option">
-              {{option.name}}
-            </mat-option>
-            <mat-option value="Date of Creation (latest first)">Date of Creation (latest first)</mat-option>
-            <mat-option value="#">Date of Creation (earliest first)</mat-option>
-            <mat-option value="#">Date of Editing (latest first)</mat-option>
-            <mat-option value="#">Date of Editing (earliest first)</mat-option>
-            <mat-option value="#">Increase of amount of items</mat-option>
-            <mat-option value="#">Decrease of amount of items</mat-option>
-          </mat-select>
-        </mat-form-field>
+        <form [formGroup]="sortForm">
+          <mat-form-field appearance="fill">
+            <mat-select formControlName="selectValue" (selectionChange)="sort()" class="sort-list">
+              <mat-option *ngFor="let option of options" [value]="option.type" class="sort__option">
+                {{option.name}}
+              </mat-option>
+              <mat-option value="Date of Creation (latest first)">Date of Creation (latest first)</mat-option>
+              <mat-option value="#">Date of Creation (earliest first)</mat-option>
+              <mat-option value="#">Date of Editing (latest first)</mat-option>
+              <mat-option value="#">Date of Editing (earliest first)</mat-option>
+              <mat-option value="#">Increase of amount of items</mat-option>
+              <mat-option value="#">Decrease of amount of items</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </form>
       </div>
       <button class="add-button-catalogue-list">
         <mat-icon class="add-icon">add_circle_outline</mat-icon>
@@ -32,7 +36,7 @@
     </div>
   </div>
   <div class="game-list">
-    <div class="game" *ngFor="let game of games">
+    <div class="game" *ngFor="let game of searchGames$ | async">
       <img src="{{game.image}}" alt="{{game.name}} image" class="game-image">
       <div class="game-container">
         <div class="game-name">
@@ -46,7 +50,7 @@
               <mat-icon class="edit__icon">create</mat-icon>
               <span>Edit</span>
             </button>
-            <button mat-menu-item>
+            <button mat-menu-item (click)="deleteGame(game.id,game.name)">
               <mat-icon class="edit__icon">delete</mat-icon>
               <span>Delete</span>
             </button>

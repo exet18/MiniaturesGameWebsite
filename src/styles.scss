@@ -38,6 +38,13 @@ html, body {
   height: 100%;
 }
 
+.snackBar {
+  span {
+    margin: 0 auto;
+    color: #A3A8A8;
+  }
+}
+
 body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   padding: 0;
@@ -53,18 +60,22 @@ body {
   font-family: "Handelson";
   src: local("Handelson"), url(./assets/fonts/Handelson-SixCYR.otf) format("truetype");
 }
+
 @font-face {
   font-family: "Gilroy-Light";
   src: local("Gilroy"), url(./assets/fonts/Gilroy-Light.otf) format("truetype");
 }
+
 @font-face {
   font-family: "Gilroy-Medium";
   src: local("Gilroy"), url(./assets/fonts/Gilroy-Medium.ttf) format("truetype");
 }
+
 @font-face {
   font-family: "Gilroy-Bold";
   src: local("Gilroy"), url(./assets/fonts/Gilroy-Bold.ttf) format("truetype");
 }
+
 @font-face {
   font-family: "Gilroy-SemiBold";
   src: local("Gilroy"), url(./assets/fonts/Gilroy-SemiBold.ttf) format("truetype");

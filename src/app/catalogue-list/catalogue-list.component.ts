@@ -1,8 +1,16 @@
-import {Component, OnInit} from '@angular/core';
-import {Games} from "../interface/games";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Game} from "../interface/game";
 import {GameListService} from "../service/game-list.service";
-import {tap} from "rxjs/operators";
-import {Options} from "../interface/options";
+import {
+  map,
+  startWith,
+  takeUntil,
+  tap
+} from "rxjs/operators";
+import {Option} from "../interface/option";
+import {Observable, Subject} from "rxjs";
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {DeleteMessageService} from "../service/delete-message.service";
 
 
 @Component({
@@ -10,50 +18,108 @@ import {Options} from "../interface/options";
   templateUrl: './catalogue-list.component.html',
   styleUrls: ['./catalogue-list.component.scss']
 })
-export class CatalogueListComponent implements OnInit {
-  sortOption = "Date of Creation (latest first)";
-  options: Options[] = [
+export class CatalogueListComponent implements OnInit, OnDestroy {
+  options: Option[] = [
     {type: "a-z", name: "Alphabet (A - Z)"},
     {type: "z-a", name: "Alphabet (Z - A)"},
   ];
-  games: Games[] = [];
+  games: Game[] = [];
+  inputForm: FormGroup;
+  destroy$ = new Subject();
+  searchGames$: Observable<Game[]> | undefined;
+  sortForm: FormGroup;
 
-  constructor(private readonly gameService: GameListService) {
+  constructor(private readonly gameService: GameListService, private readonly formBuilder: FormBuilder, private readonly snackMessage: DeleteMessageService) {
+    this.inputForm = this.formBuilder.group({
+        input: ['']
+      }
+    );
+    this.sortForm = this.formBuilder.group({
+      selectValue: ['']
+    });
   }
 
   ngOnInit(): void {
+    this.selectValue.setValue("Date of Creation (latest first)");
     this.gameService.getGameList().pipe(
-      tap(item => {
-        this.games = item;
-      })
+      tap(gamesList => {
+        this.games = gamesList;
+      }),
+      takeUntil(this.destroy$)
     ).subscribe();
+
+    this.searchGames$ = this.inputControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._search(value))
+    );
+
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next('');
+    this.destroy$.unsubscribe();
+  }
+
+  private _search(value: string) {
+    const filterValue = value.toLowerCase();
+    return this.games.filter(games => games.name.toLowerCase().includes(filterValue));
   }
 
   sort() {
-    if (this.sortOption === "a-z") {
+    if (this.selectValue.value === "a-z") {
       this.sortByNameA_Z();
-    } else if (this.sortOption === "z-a") {
+    } else if (this.selectValue.value === "z-a") {
       this.sortByNameZ_A();
     }
   }
 
   sortByNameA_Z() {
-    this.games.sort(function (first, second) {
-      //is greater than 0, sorting will put second at a lower index than first.
+    this.games = this.games.sort((first, second) => {
       if (first.name > second.name) {
         return 1;
       }
-      //is less than 0, sorting will put first at a lower index than second, that is, first comes first.
       if (first.name < second.name) {
         return -1;
       }
-      //will return 0, sorting will leave first and second unchanged with respect to each other
       return 0;
     });
+    this.updateList();
   }
 
   sortByNameZ_A() {
-    this.sortByNameA_Z();
-    this.games.reverse();
+    this.games = this.games.sort((first, second) => {
+      if (first.name < second.name) {
+        return 1;
+      }
+      if (first.name > second.name) {
+        return -1;
+      }
+      return 0;
+    });
+    this.searchGames$ = this.searchGames$?.pipe(
+      tap(value => value),
+    );
   }
+
+  deleteGame(id: number, name: string) {
+    this.gameService.itemDelete(id);
+    this.updateList();
+    this.inputControl.setValue('');
+    this.snackMessage.itemDeleteMessage(name + " deleted!");
+  }
+
+  get inputControl(): FormControl {
+    return this.inputForm.controls['input'] as FormControl;
+  }
+
+  get selectValue(): FormControl {
+    return this.sortForm.controls['selectValue'] as FormControl;
+  }
+
+  updateList() {
+    this.searchGames$ = this.searchGames$?.pipe(
+      tap(value => value),
+    );
+  }
+
 }
