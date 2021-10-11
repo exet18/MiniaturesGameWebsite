@@ -1,0 +1,40 @@
+<perfect-scrollbar>
+  <div class="add-catalogue-container">
+    <form [formGroup]="inputForm">
+      <header class="add-catalogue-header">
+        <div class="add-text">
+          <p class="add-catalogue-text">
+            Add Item
+          </p>
+        </div>
+        <mat-icon (click)="closeDialog()">close</mat-icon>
+      </header>
+      <section class="add-catalogue-content">
+        <div class="upload-photo">
+          <div class="upload-content">
+            <mat-icon>photo_camera</mat-icon>
+            <p>Upload a cover image</p>
+          </div>
+        </div>
+        <mat-form-field class="add-catalogue-input" appearance="fill">
+          <mat-label>Catalogue</mat-label>
+          <input matInput formControlName="name">
+        </mat-form-field>
+        <mat-form-field class="add-catalogue-text-area" appearance="fill">
+          <mat-label>Leave a comment</mat-label>
+          <textarea matInput maxlength="300" #message formControlName="description"></textarea>
+          <mat-hint align="end">{{message.value.length}} / 300</mat-hint>
+        </mat-form-field>
+      </section>
+    </form>
+  </div>
+  <footer class="add-catalogue-footer">
+    <div class="footer-container">
+      <div class="footer-control">
+        <button class="catalogue-cancel" (click)="resetForm()">Cancel</button>
+        <button class="catalogue-save" (click)="saveCatalogue()">Save</button>
+      </div>
+    </div>
+  </footer>
+</perfect-scrollbar>
+

@@ -1,0 +1,94 @@
+.slide-menu {
+  background: #1C2A2D;
+  height: 100%;
+
+  .slide-menu-list {
+    border-bottom: 1px solid #2E3B3E;
+
+    .list-container {
+      max-width: 280px;
+      margin: 0 20px;
+      padding: 0 28px;
+    }
+
+    .list {
+      margin: 0;
+      list-style-type: none;
+      padding-left: 32px;
+      padding-top: 38px;
+
+      .list__item {
+        padding-bottom: 32px;
+
+        a {
+          text-decoration: none;
+          font-family: Gilroy-SemiBold, sans-serif;
+          color: white;
+          font-size: 16px;
+          line-height: 24px;
+          letter-spacing: 0.5px;
+        }
+      }
+    }
+  }
+
+  .slide-controls {
+    padding-top: 24px;
+
+    .controls-container {
+      max-width: 280px;
+      margin: 0 auto;
+      padding: 0 28px;
+
+      .add-catalogue {
+        padding: 15px 0;
+        width: 100%;
+        justify-content: center;
+        border: none;
+        background: #009E8E;
+        border-radius: 2px;
+        display: flex;
+        font-size: 18px;
+        font-family: Gilroy-SemiBold, sans-serif;
+        line-height: 24px;
+        letter-spacing: 0.5px;
+        color: white;
+        margin-bottom: 24px;
+
+        &:hover {
+          cursor: pointer;
+        }
+
+        .catalogue-text {
+          margin: 0;
+          padding-left: 10px;
+        }
+      }
+
+      .add-item {
+        justify-content: center;
+        width: 100%;
+        display: flex;
+        font-family: Gilroy-SemiBold, sans-serif;
+        font-size: 18px;
+        line-height: 24px;
+        letter-spacing: 0.5px;
+        color: white;
+        background: #009E8E;
+        border-radius: 2px;
+        border: 2px solid #009E8E;
+        padding: 15px 0;
+        background: none;
+
+        &:hover {
+          cursor: pointer;
+        }
+
+        .add-item-text {
+          margin: 0;
+          padding-left: 10px;
+        }
+      }
+    }
+  }
+}

@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Game} from "../interface/game";
 import {GameListService} from "../service/game-list.service";
 import {
+  filter,
   map,
   startWith,
   takeUntil,
@@ -11,6 +12,8 @@ import {Option} from "../interface/option";
 import {Observable, Subject} from "rxjs";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {DeleteMessageService} from "../service/delete-message.service";
+import {MatDialog} from "@angular/material/dialog";
+import {AddCatalogueComponent} from "../add-catalogue/add-catalogue.component";
 
 
 @Component({
@@ -29,7 +32,7 @@ export class CatalogueListComponent implements OnInit, OnDestroy {
   searchGames$: Observable<Game[]> | undefined;
   sortForm: FormGroup;
 
-  constructor(private readonly gameService: GameListService, private readonly formBuilder: FormBuilder, private readonly snackMessage: DeleteMessageService) {
+  constructor(private readonly gameService: GameListService, private readonly formBuilder: FormBuilder, private readonly snackMessage: DeleteMessageService, private matDialog: MatDialog) {
     this.inputForm = this.formBuilder.group({
         input: ['']
       }
@@ -44,6 +47,7 @@ export class CatalogueListComponent implements OnInit, OnDestroy {
     this.gameService.getGameList().pipe(
       tap(gamesList => {
         this.games = gamesList;
+        this.updateList();
       }),
       takeUntil(this.destroy$)
     ).subscribe();
@@ -96,14 +100,11 @@ export class CatalogueListComponent implements OnInit, OnDestroy {
       }
       return 0;
     });
-    this.searchGames$ = this.searchGames$?.pipe(
-      tap(value => value),
-    );
+    this.updateList();
   }
 
   deleteGame(id: number, name: string) {
     this.gameService.itemDelete(id);
-    this.updateList();
     this.inputControl.setValue('');
     this.snackMessage.itemDeleteMessage(name + " deleted!");
   }
@@ -122,4 +123,17 @@ export class CatalogueListComponent implements OnInit, OnDestroy {
     );
   }
 
+  addCatalogue() {
+    this.matDialog.open(AddCatalogueComponent, {
+      width: "488px",
+      height: "800px"
+    }).afterClosed().pipe(
+      filter(value => this.checkValid(value) && value),
+      tap(console.log)
+    ).subscribe(result => this.gameService.addItem(result));
+  }
+
+  checkValid(value: any) {
+    return value.name !== null && value.name !== '';
+  }
 }
