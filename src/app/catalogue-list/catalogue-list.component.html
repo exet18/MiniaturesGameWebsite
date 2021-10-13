@@ -4,16 +4,14 @@
     <h2 class="catalogue-text">Catalogue List</h2>
   </div>
   <div class="game-catalogue">
-    <div class="catalogue-search-sort">
-      <div class="catalogue-search">
-        <form [formGroup]="inputForm" class="search-form">
+    <form [formGroup]="gameForm">
+      <div class="catalogue-search-sort">
+        <div class="catalogue-search">
           <mat-icon class="search__icon">search</mat-icon>
           <input type="text" class="search__input" placeholder="Search by catalogue name" formControlName="input">
-        </form>
-      </div>
-      <div class="catalogue-sort">
-        <p class="sort-text">Sort by: </p>
-        <form [formGroup]="sortForm">
+        </div>
+        <div class="catalogue-sort">
+          <p class="sort-text">Sort by: </p>
           <mat-form-field appearance="fill">
             <mat-select formControlName="selectValue" (selectionChange)="sort()" class="sort-list">
               <mat-option *ngFor="let option of options" [value]="option.type" class="sort__option">
@@ -27,16 +25,16 @@
               <mat-option value="#">Decrease of amount of items</mat-option>
             </mat-select>
           </mat-form-field>
-        </form>
+        </div>
+        <button class="add-button-catalogue-list" (click)="addCatalogue()">
+          <mat-icon class="add-icon">add_circle_outline</mat-icon>
+          <p class="catalogue-text">Add Catalogue</p>
+        </button>
       </div>
-      <button class="add-button-catalogue-list" (click)="addCatalogue()">
-        <mat-icon class="add-icon">add_circle_outline</mat-icon>
-        <p class="catalogue-text">Add Catalogue</p>
-      </button>
-    </div>
+    </form>
   </div>
   <div class="game-list">
-    <div class="game" *ngFor="let game of searchGames$ | async">
+    <div class="game" *ngFor="let game of games">
       <img src="{{game.image}}" alt="{{game.name}} image" class="game-image">
       <div class="game-container">
         <div class="game-name">

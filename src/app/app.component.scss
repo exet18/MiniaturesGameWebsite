@@ -2,7 +2,7 @@
   padding-bottom: 51px;
   display: flex;
 
-  .slide-bar {
+  .side-bar {
     width: 100%;
     max-width: 320px;
   }
@@ -10,5 +10,23 @@
   .app-catalogue-list {
     width: 100%;
     padding: 40px 48px 0 48px;
+  }
+}
+
+::ng-deep {
+  .perfect-scrollbar > .ps.ps--active-y > .ps__rail-y.ps--clicking, perfect-scrollbar > .ps.ps--active-y > .ps__rail-y:hover {
+    background: transparent;
+  }
+
+  .ps .ps__rail-x.ps--clicking, .ps .ps__rail-x:focus, .ps .ps__rail-x:hover, .ps .ps__rail-y.ps--clicking, .ps .ps__rail-y:focus, .ps .ps__rail-y:hover {
+    background: transparent !important;
+  }
+
+  .ps__thumb-x, .ps__thumb-y {
+    background-color: #009E8E !important;
+  }
+
+  .perfect-scrollbar > .ps.ps--scrolling-x > .ps__rail-x, perfect-scrollbar > .ps.ps--scrolling-y > .ps__rail-y {
+    background-color: unset !important;
   }
 }

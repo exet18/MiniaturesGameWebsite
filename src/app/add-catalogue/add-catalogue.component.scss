@@ -1,7 +1,11 @@
 .add-catalogue-container {
   margin: 0 auto;
   font-family: Gilroy-SemiBold, sans-serif;
-  padding: 24px;
+  padding: 24px 9px 24px 24px;
+
+  perfect-scrollbar {
+    padding-right: 15px;
+  }
 }
 
 .add-catalogue-header {
@@ -9,6 +13,7 @@
   align-items: center;
   justify-content: space-between;
   padding-bottom: 32px;
+  max-width: 443px;
 
   mat-icon {
     display: flex;
@@ -67,6 +72,10 @@
     background: transparent;
   }
 
+  .mat-form-field.mat-form-field-invalid .mat-form-field-ripple, .mat-form-field.mat-form-field-invalid .mat-form-field-ripple.mat-accent {
+    background-color: unset;
+  }
+
   .ps .ps__rail-x.ps--clicking, .ps .ps__rail-x:focus, .ps .ps__rail-x:hover, .ps .ps__rail-y.ps--clicking, .ps .ps__rail-y:focus, .ps .ps__rail-y:hover {
     background: transparent !important;
   }
@@ -104,6 +113,10 @@
       .mat-form-field.mat-focused .mat-form-field-label {
         color: #82898B;
       }
+
+      .mat-form-field.mat-form-field-invalid .mat-form-field-label {
+        color: #f44336 !important;
+      }
     }
   }
 
@@ -114,12 +127,28 @@
     width: 100%;
     height: 56px;
     margin-bottom: 32px;
+
+    mat-error {
+      padding-top: 20px;
+      font-size: 16px;
+    }
   }
 
   .add-catalogue-text-area {
     background: #1F3335;
     width: 100%;
     border-radius: 2px;
+
+    &::ng-deep {
+      .mat-form-field-label {
+        color: #82898B !important;
+      }
+    }
+
+    mat-error {
+      padding-top: 20px;
+      font-size: 16px;
+    }
 
     textarea {
       resize: none;
@@ -177,5 +206,13 @@
     &:hover {
       cursor: pointer;
     }
+  }
+}
+
+.invalidButton {
+  opacity: 0.3;
+
+  &:hover {
+    cursor: default !important;
   }
 }

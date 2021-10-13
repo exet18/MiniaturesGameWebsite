@@ -2,6 +2,8 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Game} from "../interface/game";
 import {GameListService} from "../service/game-list.service";
 import {
+  debounceTime,
+  delay, distinctUntilChanged,
   filter,
   map,
   startWith,
@@ -9,7 +11,7 @@ import {
   tap
 } from "rxjs/operators";
 import {Option} from "../interface/option";
-import {Observable, Subject} from "rxjs";
+import {Subject} from "rxjs";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {DeleteMessageService} from "../service/delete-message.service";
 import {MatDialog} from "@angular/material/dialog";
@@ -27,19 +29,16 @@ export class CatalogueListComponent implements OnInit, OnDestroy {
     {type: "z-a", name: "Alphabet (Z - A)"},
   ];
   games: Game[] = [];
-  inputForm: FormGroup;
+  gamesCopy: Game[] = [];
+  gameForm: FormGroup;
   destroy$ = new Subject();
-  searchGames$: Observable<Game[]> | undefined;
-  sortForm: FormGroup;
 
   constructor(private readonly gameService: GameListService, private readonly formBuilder: FormBuilder, private readonly snackMessage: DeleteMessageService, private matDialog: MatDialog) {
-    this.inputForm = this.formBuilder.group({
-        input: ['']
+    this.gameForm = this.formBuilder.group({
+        input: [''],
+        selectValue: ['']
       }
     );
-    this.sortForm = this.formBuilder.group({
-      selectValue: ['']
-    });
   }
 
   ngOnInit(): void {
@@ -47,26 +46,31 @@ export class CatalogueListComponent implements OnInit, OnDestroy {
     this.gameService.getGameList().pipe(
       tap(gamesList => {
         this.games = gamesList;
-        this.updateList();
+        this.gamesCopy = this.games.slice();
       }),
       takeUntil(this.destroy$)
     ).subscribe();
 
-    this.searchGames$ = this.inputControl.valueChanges.pipe(
+    this.inputControl.valueChanges.pipe(
       startWith(''),
-      map(value => this._search(value))
-    );
+      debounceTime(500),
+      distinctUntilChanged(),
+      tap(value => {
+        this.games = this.gamesCopy;
+        this.search(value);
+      })
+    ).subscribe();
 
   }
 
   ngOnDestroy() {
     this.destroy$.next('');
-    this.destroy$.unsubscribe();
+    this.destroy$.complete();
   }
 
-  private _search(value: string) {
+  private search(value: string) {
     const filterValue = value.toLowerCase();
-    return this.games.filter(games => games.name.toLowerCase().includes(filterValue));
+    this.games = this.games.filter(games => games.name.toLowerCase().includes(filterValue));
   }
 
   sort() {
@@ -87,7 +91,6 @@ export class CatalogueListComponent implements OnInit, OnDestroy {
       }
       return 0;
     });
-    this.updateList();
   }
 
   sortByNameZ_A() {
@@ -100,7 +103,6 @@ export class CatalogueListComponent implements OnInit, OnDestroy {
       }
       return 0;
     });
-    this.updateList();
   }
 
   deleteGame(id: number, name: string) {
@@ -110,30 +112,25 @@ export class CatalogueListComponent implements OnInit, OnDestroy {
   }
 
   get inputControl(): FormControl {
-    return this.inputForm.controls['input'] as FormControl;
+    return this.gameForm.get('input') as FormControl;
   }
 
   get selectValue(): FormControl {
-    return this.sortForm.controls['selectValue'] as FormControl;
-  }
-
-  updateList() {
-    this.searchGames$ = this.searchGames$?.pipe(
-      tap(value => value),
-    );
+    return this.gameForm.get('selectValue') as FormControl;
   }
 
   addCatalogue() {
     this.matDialog.open(AddCatalogueComponent, {
       width: "488px",
-      height: "800px"
+      height: "830px"
     }).afterClosed().pipe(
-      filter(value => this.checkValid(value) && value),
-      tap(console.log)
-    ).subscribe(result => this.gameService.addItem(result));
+      filter(value => this.checkValid(value)),
+      tap(result => this.gameService.addItem(result)),
+      takeUntil(this.destroy$)
+    ).subscribe();
   }
 
   checkValid(value: any) {
-    return value.name !== null && value.name !== '';
+    return value && value.name !== null && value.name !== '';
   }
 }
