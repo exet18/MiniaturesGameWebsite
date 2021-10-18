@@ -38,7 +38,7 @@
 
 .add-catalogue-content {
   .upload-photo {
-    border: 1px dashed #7C8C99;
+    border: 1px dashed #7c8c99;
     border-radius: 8px;
     padding: 123px 0 119px 0;
     margin-bottom: 32px;
@@ -49,7 +49,7 @@
 
       mat-icon {
         display: flex;
-        color: #D5D8D8;
+        color: #d5d8d8;
         margin: 0 auto;
         font-size: 32px;
       }
@@ -60,7 +60,7 @@
         line-height: 24px;
         text-align: center;
         letter-spacing: 0.5px;
-        color: #D5D8D8;
+        color: #d5d8d8;
         padding-top: 12px;
       }
     }
@@ -68,104 +68,38 @@
 }
 
 ::ng-deep {
-  .perfect-scrollbar > .ps.ps--active-y > .ps__rail-y.ps--clicking, perfect-scrollbar > .ps.ps--active-y > .ps__rail-y:hover {
+  .perfect-scrollbar > .ps.ps--active-y > .ps__rail-y.ps--clicking,
+  perfect-scrollbar > .ps.ps--active-y > .ps__rail-y:hover {
     background: transparent;
   }
 
-  .mat-form-field.mat-form-field-invalid .mat-form-field-ripple, .mat-form-field.mat-form-field-invalid .mat-form-field-ripple.mat-accent {
+  .mat-form-field.mat-form-field-invalid .mat-form-field-ripple,
+  .mat-form-field.mat-form-field-invalid .mat-form-field-ripple.mat-accent {
     background-color: unset;
   }
 
-  .ps .ps__rail-x.ps--clicking, .ps .ps__rail-x:focus, .ps .ps__rail-x:hover, .ps .ps__rail-y.ps--clicking, .ps .ps__rail-y:focus, .ps .ps__rail-y:hover {
+  .ps .ps__rail-x.ps--clicking,
+  .ps .ps__rail-x:focus,
+  .ps .ps__rail-x:hover,
+  .ps .ps__rail-y.ps--clicking,
+  .ps .ps__rail-y:focus,
+  .ps .ps__rail-y:hover {
     background: transparent !important;
   }
 
-  .ps__thumb-x, .ps__thumb-y {
-    background-color: #009E8E !important;
+  .ps__thumb-x,
+  .ps__thumb-y {
+    background-color: #009e8e !important;
   }
 
-  .perfect-scrollbar > .ps.ps--scrolling-x > .ps__rail-x, perfect-scrollbar > .ps.ps--scrolling-y > .ps__rail-y {
+  .perfect-scrollbar > .ps.ps--scrolling-x > .ps__rail-x,
+  perfect-scrollbar > .ps.ps--scrolling-y > .ps__rail-y {
     background-color: unset !important;
-  }
-
-  .mat-dialog-container {
-    background: #2E3B3E;
-    border-radius: 2px;
-    padding: 0 !important;
-
-    &::ng-deep {
-      .mat-input-element {
-        font-family: Roboto, sans-serif;
-        font-weight: normal;
-        font-size: 16px;
-        line-height: 24px;
-        color: white !important;
-      }
-
-      .mat-form-field-label {
-        color: #82898B;
-      }
-
-      .mat-form-field-appearance-fill .mat-form-field-flex {
-        padding: 20px 16px 4px 16px !important;
-      }
-
-      .mat-form-field.mat-focused .mat-form-field-label {
-        color: #82898B;
-      }
-
-      .mat-form-field.mat-form-field-invalid .mat-form-field-label {
-        color: #f44336 !important;
-      }
-    }
-  }
-
-  .add-catalogue-input {
-    background: #1F3335;
-    border-radius: 2px;
-    max-width: 440px;
-    width: 100%;
-    height: 56px;
-    margin-bottom: 32px;
-
-    mat-error {
-      padding-top: 20px;
-      font-size: 16px;
-    }
-  }
-
-  .add-catalogue-text-area {
-    background: #1F3335;
-    width: 100%;
-    border-radius: 2px;
-
-    &::ng-deep {
-      .mat-form-field-label {
-        color: #82898B !important;
-      }
-    }
-
-    mat-error {
-      padding-top: 20px;
-      font-size: 16px;
-    }
-
-    textarea {
-      resize: none;
-      height: 160px;
-    }
-
-    mat-hint {
-      padding-top: 17px;
-      color: #82898B;
-      font-size: 12px;
-      line-height: 16px;
-    }
   }
 }
 
 .add-catalogue-footer {
-  border-top: 1px solid #82898B;
+  border-top: 1px solid #82898b;
   margin-top: 26px;
   padding-top: 16px;
   padding-bottom: 16px;
@@ -179,7 +113,7 @@
   }
 
   .catalogue-save {
-    background: #009E8E;
+    background: #009e8e;
     border-radius: 2px;
     border: none;
     font-style: normal;

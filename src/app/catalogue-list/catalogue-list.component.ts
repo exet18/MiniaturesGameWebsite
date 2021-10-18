@@ -1,66 +1,73 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Game} from "../interface/game";
-import {GameListService} from "../service/game-list.service";
-import {
-  debounceTime,
-  delay, distinctUntilChanged,
-  filter,
-  map,
-  startWith,
-  takeUntil,
-  tap
-} from "rxjs/operators";
-import {Option} from "../interface/option";
-import {Subject} from "rxjs";
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {DeleteMessageService} from "../service/delete-message.service";
-import {MatDialog} from "@angular/material/dialog";
-import {AddCatalogueComponent} from "../add-catalogue/add-catalogue.component";
-
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Game } from '../interface/game';
+import { GameListService } from '../service/game-list.service';
+import { debounceTime, distinctUntilChanged, filter, startWith, takeUntil, tap } from 'rxjs/operators';
+import { Option } from '../interface/option';
+import { Subject } from 'rxjs';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { MessageService } from '../service/message.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AddCatalogueComponent } from '../add-catalogue/add-catalogue.component';
 
 @Component({
   selector: 'app-catalogue-list',
   templateUrl: './catalogue-list.component.html',
-  styleUrls: ['./catalogue-list.component.scss']
+  styleUrls: ['./catalogue-list.component.scss'],
 })
 export class CatalogueListComponent implements OnInit, OnDestroy {
   options: Option[] = [
-    {type: "a-z", name: "Alphabet (A - Z)"},
-    {type: "z-a", name: "Alphabet (Z - A)"},
+    { type: 'a-z', name: 'Alphabet (A - Z)' },
+    { type: 'z-a', name: 'Alphabet (Z - A)' },
+    { type: 'l-f', name: 'Date of Creation (latest first)' },
   ];
   games: Game[] = [];
   gamesCopy: Game[] = [];
   gameForm: FormGroup;
   destroy$ = new Subject();
 
-  constructor(private readonly gameService: GameListService, private readonly formBuilder: FormBuilder, private readonly snackMessage: DeleteMessageService, private matDialog: MatDialog) {
+  get searchControl(): FormControl {
+    return this.gameForm.get('search') as FormControl;
+  }
+
+  get selectControl(): FormControl {
+    return this.gameForm.get('select') as FormControl;
+  }
+
+  constructor(
+    private readonly gameService: GameListService,
+    private readonly formBuilder: FormBuilder,
+    private readonly snackMessage: MessageService,
+    private readonly matDialog: MatDialog
+  ) {
     this.gameForm = this.formBuilder.group({
-        input: [''],
-        selectValue: ['']
-      }
-    );
+      search: [''],
+      select: ['l-f'],
+    });
   }
 
   ngOnInit(): void {
-    this.selectValue.setValue("Date of Creation (latest first)");
-    this.gameService.getGameList().pipe(
-      tap(gamesList => {
-        this.games = gamesList;
-        this.gamesCopy = this.games.slice();
-      }),
-      takeUntil(this.destroy$)
-    ).subscribe();
+    this.gameService
+      .getGameList()
+      .pipe(
+        tap(gamesList => {
+          this.games = gamesList;
+          this.gamesCopy = this.games.slice();
+        }),
+        takeUntil(this.destroy$)
+      )
+      .subscribe();
 
-    this.inputControl.valueChanges.pipe(
-      startWith(''),
-      debounceTime(500),
-      distinctUntilChanged(),
-      tap(value => {
-        this.games = this.gamesCopy;
-        this.search(value);
-      })
-    ).subscribe();
-
+    this.searchControl.valueChanges
+      .pipe(
+        startWith(''),
+        debounceTime(500),
+        distinctUntilChanged(),
+        tap(value => {
+          this.games = this.gamesCopy;
+          this.search(value);
+        })
+      )
+      .subscribe();
   }
 
   ngOnDestroy() {
@@ -68,16 +75,20 @@ export class CatalogueListComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  private search(value: string) {
-    const filterValue = value.toLowerCase();
-    this.games = this.games.filter(games => games.name.toLowerCase().includes(filterValue));
-  }
-
   sort() {
-    if (this.selectValue.value === "a-z") {
-      this.sortByNameA_Z();
-    } else if (this.selectValue.value === "z-a") {
-      this.sortByNameZ_A();
+    switch (this.selectControl.value) {
+      case 'a-z': {
+        this.sortByNameA_Z();
+        break;
+      }
+      case 'z-a': {
+        this.sortByNameZ_A();
+        break;
+      }
+      default: {
+        this.selectControl.setValue('l-f');
+        break;
+      }
     }
   }
 
@@ -107,30 +118,33 @@ export class CatalogueListComponent implements OnInit, OnDestroy {
 
   deleteGame(id: number, name: string) {
     this.gameService.itemDelete(id);
-    this.inputControl.setValue('');
-    this.snackMessage.itemDeleteMessage(name + " deleted!");
-  }
-
-  get inputControl(): FormControl {
-    return this.gameForm.get('input') as FormControl;
-  }
-
-  get selectValue(): FormControl {
-    return this.gameForm.get('selectValue') as FormControl;
+    this.searchControl.setValue('');
+    this.snackMessage.itemDeleteMessage(name + ' deleted!');
   }
 
   addCatalogue() {
-    this.matDialog.open(AddCatalogueComponent, {
-      width: "488px",
-      height: "830px"
-    }).afterClosed().pipe(
-      filter(value => this.checkValid(value)),
-      tap(result => this.gameService.addItem(result)),
-      takeUntil(this.destroy$)
-    ).subscribe();
+    this.matDialog
+      .open(AddCatalogueComponent, {
+        width: '488px',
+        height: '830px',
+        autoFocus: false,
+        panelClass: 'dialog',
+      })
+      .afterClosed()
+      .pipe(
+        filter(value => this.isCatalogueValid(value)),
+        tap(result => this.gameService.addItem(result)),
+        takeUntil(this.destroy$)
+      )
+      .subscribe();
   }
 
-  checkValid(value: any) {
+  isCatalogueValid(value: any) {
     return value && value.name !== null && value.name !== '';
+  }
+
+  private search(value: string) {
+    const filterValue = value.toLowerCase();
+    this.games = this.games.filter(games => games.name.toLowerCase().includes(filterValue));
   }
 }

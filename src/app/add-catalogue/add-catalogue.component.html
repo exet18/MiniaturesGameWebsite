@@ -1,15 +1,13 @@
 <div class="add-catalogue-container">
   <header class="add-catalogue-header">
     <div class="add-text">
-      <p class="add-catalogue-text">
-        Add Item
-      </p>
+      <p class="add-catalogue-text">Add Item</p>
     </div>
     <mat-icon (click)="closeDialog()">close</mat-icon>
   </header>
   <perfect-scrollbar>
-    <form [formGroup]="inputForm">
-      <section class="add-catalogue-content">
+    <section class="add-catalogue-content">
+      <form [formGroup]="catalogueForm">
         <div class="upload-photo">
           <div class="upload-content">
             <mat-icon>photo_camera</mat-icon>
@@ -18,31 +16,27 @@
         </div>
         <mat-form-field class="add-catalogue-input" appearance="fill">
           <mat-label>Catalogue</mat-label>
-          <input matInput formControlName="name">
-          <mat-error *ngIf="nameValidRequired">Catalogue name required</mat-error>
+          <input matInput formControlName="name" />
+          <mat-error *ngIf="invalidCatalogueName">Catalogue name required</mat-error>
           <mat-error *ngIf="validCatalogueName">Forbidden symbols</mat-error>
         </mat-form-field>
         <mat-form-field class="add-catalogue-text-area" appearance="fill">
           <mat-label>Leave a comment</mat-label>
           <textarea matInput maxlength="300" #message formControlName="description"></textarea>
-          <mat-error *ngIf="validDescriptionLength">
-            Max length 300 symbols
-          </mat-error>
-          <mat-hint align="end">{{message.value.length}} / 300</mat-hint>
+          <mat-error *ngIf="validDescriptionLength"> Max length 300 symbols </mat-error>
+          <mat-hint align="end">{{ message.value.length }} / 300</mat-hint>
         </mat-form-field>
-      </section>
-    </form>
+      </form>
+    </section>
   </perfect-scrollbar>
-
 </div>
 <footer class="add-catalogue-footer">
   <div class="footer-container">
     <div class="footer-control">
       <button class="catalogue-cancel" (click)="resetForm()">Cancel</button>
-      <button [ngClass]="{'invalidButton': validForm}" class="catalogue-save" (click)="saveCatalogue()"
-              [disabled]="validForm">Save
+      <button [ngClass]="{ invalidButton: isFormValid }" class="catalogue-save" (click)="saveCatalogue()" [disabled]="isFormValid">
+        Save
       </button>
     </div>
   </div>
 </footer>
-

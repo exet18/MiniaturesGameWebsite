@@ -8,16 +8,15 @@
       <div class="catalogue-search-sort">
         <div class="catalogue-search">
           <mat-icon class="search__icon">search</mat-icon>
-          <input type="text" class="search__input" placeholder="Search by catalogue name" formControlName="input">
+          <input type="text" class="search__input" placeholder="Search by catalogue name" formControlName="search" />
         </div>
         <div class="catalogue-sort">
-          <p class="sort-text">Sort by: </p>
+          <p class="sort-text">Sort by:</p>
           <mat-form-field appearance="fill">
-            <mat-select formControlName="selectValue" (selectionChange)="sort()" class="sort-list">
+            <mat-select formControlName="select" (selectionChange)="sort()" class="sort-list">
               <mat-option *ngFor="let option of options" [value]="option.type" class="sort__option">
-                {{option.name}}
+                {{ option.name }}
               </mat-option>
-              <mat-option value="Date of Creation (latest first)">Date of Creation (latest first)</mat-option>
               <mat-option value="#">Date of Creation (earliest first)</mat-option>
               <mat-option value="#">Date of Editing (latest first)</mat-option>
               <mat-option value="#">Date of Editing (earliest first)</mat-option>
@@ -35,12 +34,11 @@
   </div>
   <div class="game-list">
     <div class="game" *ngFor="let game of games">
-      <img src="{{game.image}}" alt="{{game.name}} image" class="game-image">
+      <img src="{{ game.image }}" alt="{{ game.name }} image" class="game-image" />
       <div class="game-container">
         <div class="game-name">
-          <p class="name">{{game.name}}</p>
-          <mat mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu"
-               class="edit-menu">
+          <p class="name">{{ game.name }}</p>
+          <mat mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" class="edit-menu">
             <mat-icon>more_vert</mat-icon>
           </mat>
           <mat-menu #menu="matMenu">
@@ -48,17 +46,16 @@
               <mat-icon class="edit__icon">create</mat-icon>
               <span>Edit</span>
             </button>
-            <button mat-menu-item (click)="deleteGame(game.id,game.name)">
+            <button mat-menu-item (click)="deleteGame(game.id, game.name)">
               <mat-icon class="edit__icon">delete</mat-icon>
               <span>Delete</span>
             </button>
           </mat-menu>
         </div>
         <mat-card class="game-amount">
-          <p>{{game.amount}} Items</p>
+          <p>{{ game.amount }} Items</p>
         </mat-card>
       </div>
     </div>
   </div>
 </div>
-

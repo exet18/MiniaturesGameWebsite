@@ -1,9 +1,9 @@
 .slide-menu {
-  background: #1C2A2D;
+  background: #1c2a2d;
   height: 100%;
 
   .slide-menu-list {
-    border-bottom: 1px solid #2E3B3E;
+    border-bottom: 1px solid #2e3b3e;
 
     .list-container {
       max-width: 280px;
@@ -45,7 +45,7 @@
         width: 100%;
         justify-content: center;
         border: none;
-        background: #009E8E;
+        background: #009e8e;
         border-radius: 2px;
         display: flex;
         font-size: 18px;
@@ -74,9 +74,9 @@
         line-height: 24px;
         letter-spacing: 0.5px;
         color: white;
-        background: #009E8E;
+        background: #009e8e;
         border-radius: 2px;
-        border: 2px solid #009E8E;
+        border: 2px solid #009e8e;
         padding: 15px 0;
         background: none;
 
@@ -89,6 +89,52 @@
           padding-left: 10px;
         }
       }
+    }
+  }
+}
+
+::ng-deep .dialog {
+  .mat-dialog-container {
+    background: #2e3b3e;
+    border-radius: 2px;
+    padding: 0 !important;
+
+    .add-catalogue-input {
+      background: #1f3335;
+      border-radius: 2px;
+      max-width: 440px;
+      width: 100%;
+      height: 56px;
+      margin-bottom: 32px;
+
+      mat-error {
+        padding-top: 20px;
+        font-size: 16px;
+      }
+    }
+
+    .mat-input-element {
+      font-family: Roboto, sans-serif;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 24px;
+      color: white !important;
+    }
+
+    .mat-form-field-label {
+      color: #82898b;
+    }
+
+    .mat-form-field-appearance-fill .mat-form-field-flex {
+      padding: 20px 16px 4px 16px !important;
+    }
+
+    .mat-form-field.mat-focused .mat-form-field-label {
+      color: #82898b;
+    }
+
+    .mat-form-field.mat-form-field-invalid .mat-form-field-label {
+      color: #f44336 !important;
     }
   }
 }

@@ -19,13 +19,15 @@ $GameSite-warn: mat.define-palette(mat.$red-palette);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$GameSite-theme: mat.define-light-theme((
-  color: (
-    primary: $GameSite-primary,
-    accent: $GameSite-accent,
-    warn: $GameSite-warn,
+$GameSite-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $GameSite-primary,
+      accent: $GameSite-accent,
+      warn: $GameSite-warn,
+    ),
   )
-));
+);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
@@ -34,22 +36,24 @@ $GameSite-theme: mat.define-light-theme((
 
 /* You can add global styles to this file, and also import other style files */
 
-html, body {
+html,
+body {
   height: 100%;
 }
 
 .snackBar {
+  background-color: #1c2a2d;
   span {
     margin: 0 auto;
-    color: #A3A8A8;
+    color: #dcdbdb;
   }
 }
 
 body {
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
   padding: 0;
   margin: 0;
-  background: #061C1F;
+  background: #061c1f;
 }
 
 * {
@@ -57,27 +61,26 @@ body {
 }
 
 @font-face {
-  font-family: "Handelson";
-  src: local("Handelson"), url(./assets/fonts/Handelson-SixCYR.otf) format("truetype");
+  font-family: 'Handelson';
+  src: local('Handelson'), url(./assets/fonts/Handelson-SixCYR.otf) format('truetype');
 }
 
 @font-face {
-  font-family: "Gilroy-Light";
-  src: local("Gilroy"), url(./assets/fonts/Gilroy-Light.otf) format("truetype");
+  font-family: 'Gilroy-Light';
+  src: local('Gilroy'), url(./assets/fonts/Gilroy-Light.otf) format('truetype');
 }
 
 @font-face {
-  font-family: "Gilroy-Medium";
-  src: local("Gilroy"), url(./assets/fonts/Gilroy-Medium.ttf) format("truetype");
+  font-family: 'Gilroy-Medium';
+  src: local('Gilroy'), url(./assets/fonts/Gilroy-Medium.ttf) format('truetype');
 }
 
 @font-face {
-  font-family: "Gilroy-Bold";
-  src: local("Gilroy"), url(./assets/fonts/Gilroy-Bold.ttf) format("truetype");
+  font-family: 'Gilroy-Bold';
+  src: local('Gilroy'), url(./assets/fonts/Gilroy-Bold.ttf) format('truetype');
 }
 
 @font-face {
-  font-family: "Gilroy-SemiBold";
-  src: local("Gilroy"), url(./assets/fonts/Gilroy-SemiBold.ttf) format("truetype");
+  font-family: 'Gilroy-SemiBold';
+  src: local('Gilroy'), url(./assets/fonts/Gilroy-SemiBold.ttf) format('truetype');
 }
-
