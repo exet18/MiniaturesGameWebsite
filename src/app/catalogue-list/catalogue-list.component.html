@@ -14,7 +14,7 @@
           <p class="sort-text">Sort by:</p>
           <mat-form-field appearance="fill">
             <mat-select formControlName="select" (selectionChange)="sort()" class="sort-list">
-              <mat-option *ngFor='let option of optionKey' [value]='option'>{{optionList[option]}}</mat-option>
+              <mat-option *ngFor='let option of optionKey' [value]='option'>{{sortOptions[option]}}</mat-option>
               <mat-option value="#">Date of Creation (earliest first)</mat-option>
               <mat-option value="#">Date of Editing (latest first)</mat-option>
               <mat-option value="#">Date of Editing (earliest first)</mat-option>

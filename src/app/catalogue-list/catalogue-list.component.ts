@@ -7,7 +7,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MessageService } from '../service/message.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddCatalogueComponent } from '../add-catalogue/add-catalogue.component';
-import { listOptions } from './options';
+import { catalogueSort } from './options';
 
 @Component({
   selector: 'app-catalogue-list',
@@ -19,8 +19,8 @@ export class CatalogueListComponent implements OnInit, OnDestroy {
   private gamesCopy: Game[] = [];
   gameForm: FormGroup;
   private destroy$ = new Subject();
-  optionList = listOptions;
-  optionKey = Object.keys(this.optionList);
+  sortOptions = catalogueSort;
+  optionKey = Object.keys(this.sortOptions);
 
   get searchControl(): FormControl {
     return this.gameForm.get('search') as FormControl;
