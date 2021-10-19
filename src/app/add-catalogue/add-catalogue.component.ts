@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
@@ -10,27 +10,27 @@ import { Subject } from 'rxjs';
 })
 export class AddCatalogueComponent implements OnDestroy {
   catalogueForm: FormGroup;
-  destroy$ = new Subject();
+  private destroy$ = new Subject();
 
-  get invalidCatalogueName() {
+  get isCatalogueRequired() {
     return this.catalogueForm.controls.name.errors && this.catalogueForm.controls.name.errors.required;
   }
 
-  get validCatalogueName() {
+  get isInvalidCatalogueName() {
     return this.catalogueForm.controls.name.errors && this.catalogueForm.controls.name.errors.pattern;
   }
 
-  get validDescriptionLength() {
+  get isInvalidDescriptionLength() {
     return this.catalogueForm.controls.description.errors && this.catalogueForm.controls.description.errors.invalidLength;
   }
 
   get isFormValid() {
-    return this.validCatalogueName || this.validDescriptionLength;
+    return this.catalogueForm.invalid;
   }
 
   constructor(private matDialogRef: MatDialogRef<AddCatalogueComponent>, private readonly formBuilder: FormBuilder) {
     this.catalogueForm = this.formBuilder.group({
-      id: [this.randomId()],
+      id: [0],
       image: ['../../assets/images/games-photos/default.png'],
       name: new FormControl('', [Validators.pattern(/^[A-Za-z0-9]+$/), Validators.required]),
       description: ['', this.descriptionLength()],
@@ -53,10 +53,6 @@ export class AddCatalogueComponent implements OnDestroy {
 
   resetForm() {
     this.catalogueForm.reset();
-  }
-
-  private randomId() {
-    return Math.floor(Math.random() * 1000000000);
   }
 
   private descriptionLength(): ValidatorFn {
