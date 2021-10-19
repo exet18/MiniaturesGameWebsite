@@ -2,12 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Game } from '../interface/game';
 import { GameListService } from '../service/game-list.service';
 import { debounceTime, distinctUntilChanged, filter, startWith, takeUntil, tap } from 'rxjs/operators';
-import { Option } from '../interface/option';
 import { Subject } from 'rxjs';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MessageService } from '../service/message.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddCatalogueComponent } from '../add-catalogue/add-catalogue.component';
+import { listOptions } from './options';
 
 @Component({
   selector: 'app-catalogue-list',
@@ -15,15 +15,12 @@ import { AddCatalogueComponent } from '../add-catalogue/add-catalogue.component'
   styleUrls: ['./catalogue-list.component.scss'],
 })
 export class CatalogueListComponent implements OnInit, OnDestroy {
-  options: Option[] = [
-    { type: 'a-z', name: 'Alphabet (A - Z)' },
-    { type: 'z-a', name: 'Alphabet (Z - A)' },
-    { type: 'l-f', name: 'Date of Creation (latest first)' },
-  ];
   games: Game[] = [];
-  gamesCopy: Game[] = [];
+  private gamesCopy: Game[] = [];
   gameForm: FormGroup;
-  destroy$ = new Subject();
+  private destroy$ = new Subject();
+  optionList = listOptions;
+  optionKey = Object.keys(this.optionList);
 
   get searchControl(): FormControl {
     return this.gameForm.get('search') as FormControl;
@@ -41,7 +38,7 @@ export class CatalogueListComponent implements OnInit, OnDestroy {
   ) {
     this.gameForm = this.formBuilder.group({
       search: [''],
-      select: ['l-f'],
+      select: ['lf'],
     });
   }
 
@@ -65,7 +62,8 @@ export class CatalogueListComponent implements OnInit, OnDestroy {
         tap(value => {
           this.games = this.gamesCopy;
           this.search(value);
-        })
+        }),
+        takeUntil(this.destroy$)
       )
       .subscribe();
   }
@@ -77,16 +75,16 @@ export class CatalogueListComponent implements OnInit, OnDestroy {
 
   sort() {
     switch (this.selectControl.value) {
-      case 'a-z': {
+      case 'az': {
         this.sortByNameA_Z();
         break;
       }
-      case 'z-a': {
+      case 'za': {
         this.sortByNameZ_A();
         break;
       }
       default: {
-        this.selectControl.setValue('l-f');
+        this.sortByNameA_Z();
         break;
       }
     }
@@ -139,7 +137,7 @@ export class CatalogueListComponent implements OnInit, OnDestroy {
       .subscribe();
   }
 
-  isCatalogueValid(value: any) {
+  isCatalogueValid(value: Game) {
     return value && value.name !== null && value.name !== '';
   }
 

@@ -8,15 +8,13 @@
       <div class="catalogue-search-sort">
         <div class="catalogue-search">
           <mat-icon class="search__icon">search</mat-icon>
-          <input type="text" class="search__input" placeholder="Search by catalogue name" formControlName="search" />
+          <input type="text" class="search__input" placeholder="Search by catalogue name" formControlName="search"/>
         </div>
         <div class="catalogue-sort">
           <p class="sort-text">Sort by:</p>
           <mat-form-field appearance="fill">
             <mat-select formControlName="select" (selectionChange)="sort()" class="sort-list">
-              <mat-option *ngFor="let option of options" [value]="option.type" class="sort__option">
-                {{ option.name }}
-              </mat-option>
+              <mat-option *ngFor='let option of optionKey' [value]='option'>{{optionList[option]}}</mat-option>
               <mat-option value="#">Date of Creation (earliest first)</mat-option>
               <mat-option value="#">Date of Editing (latest first)</mat-option>
               <mat-option value="#">Date of Editing (earliest first)</mat-option>
@@ -34,11 +32,12 @@
   </div>
   <div class="game-list">
     <div class="game" *ngFor="let game of games">
-      <img src="{{ game.image }}" alt="{{ game.name }} image" class="game-image" />
+      <img src="{{ game.image }}" alt="{{ game.name }} image" class="game-image"/>
       <div class="game-container">
         <div class="game-name">
           <p class="name">{{ game.name }}</p>
-          <mat mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" class="edit-menu">
+          <mat mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu"
+               class="edit-menu">
             <mat-icon>more_vert</mat-icon>
           </mat>
           <mat-menu #menu="matMenu">
