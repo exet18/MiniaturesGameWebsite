@@ -14,7 +14,7 @@
       font-size: 32px;
       line-height: 40px;
       letter-spacing: 0.5px;
-      color: #ffffff;
+      color: white;
     }
   }
 
@@ -116,19 +116,21 @@
 
   .game-list {
     display: grid;
-    grid-template-columns: 480px 480px 480px;
-    justify-content: space-between;
+    grid-template-columns: repeat(auto-fill, 480px);
+    gap: 32px;
+    justify-content: center;
 
     .game {
       background: #2e3b3e;
-      margin-bottom: 25px;
 
       .game-image {
         max-width: 480px;
+        width: 100%;
+        height: 262px;
       }
 
       .game-container {
-        padding: 32px 32px;
+        padding: 32px;
 
         .game-name {
           display: flex;
@@ -144,7 +146,7 @@
             font-size: 24px;
             line-height: 32px;
             font-family: Gilroy-SemiBold, sans-serif;
-            color: #ffffff;
+            color: white;
             margin: 0;
           }
 
@@ -183,6 +185,10 @@
 ::ng-deep {
   .mat-form-field-wrapper {
     padding: 0;
+  }
+
+  .mat-icon-button {
+    width: unset !important;
   }
 
   .mat-form-field.mat-focused .mat-form-field-ripple {

@@ -11,7 +11,7 @@ import { Subject } from 'rxjs';
   styleUrls: ['./side-bar-menu.component.scss'],
 })
 export class SideBarMenuComponent implements OnDestroy {
-  destroy$ = new Subject();
+  private destroy$ = new Subject();
 
   constructor(private matDialog: MatDialog, private readonly games: GameListService) {}
 
@@ -23,7 +23,6 @@ export class SideBarMenuComponent implements OnDestroy {
   addCatalogue() {
     this.matDialog
       .open(AddCatalogueComponent, {
-        data: {},
         width: '488px',
         height: '830px',
         autoFocus: false,
